@@ -299,12 +299,27 @@ description: |
 
 ---
 
+## 发布到公众号（绿色路线，定稿后）
+
+创作定稿（公众号 markdown，通常在 Obsidian vault 笔记）后，发布走这套——图片**全部 base64 内嵌**，粘贴公众号自动上传素材库。**完整流程见 `references/wechat-green-publish.md`**。
+
+顺序：**定稿笔记 →（配图，明确指令才触发）→ 发布副本+插入 → 套绿色样式 → 内嵌 → 粘贴**
+
+1. **perbrand 配图（明确指令才触发，⚠️ 生图花钱）**：用户明确说「配图」才跑 `scripts/illustrate.sh <笔记.md>` → 生图 + shotlist。只用截图就跳过。
+2. **发布副本**：复制 `<笔记名>-publish.md`（**原笔记不动**），按 shotlist 锚点插 `![[<笔记名>-perbrand-0N.png]]`，截图 `![[截屏xxx]]` 保留原位。
+3. **套绿色样式**：读 `templates/wechat-green.html`，副本 markdown → 绿色 inline HTML，图片 `![[]]` → `<img src="文件名">`。
+4. **内嵌发布**：`scripts/publish-to-wechat.sh <绿色.html>` → 配图+截图 base64 内嵌（截图从 vault 自动抓）+ 拷贝 → 粘贴公众号。
+
+**铁律**：配图绝不自动（明确指令才生图）；发布副本不污染原始沉淀笔记；配图名带 `<笔记名>-` 前缀避免 vault 冲突。
+
+---
+
 ## Gotchas（持续累积）
 
 > 每次跑这个 skill 遇到的坑，及时追加到这里，未来 Claude 自动避开。
 
-- **【公众号】输出 markdown 不输出 HTML**（2026-06-18 用户反馈，已沉淀）：HTML 不可读、用户改字麻烦、样式锁死。标准工作流是 markdown → 下游工具（mdnice / md2weixin-core / 公众号编辑器辅助插件）→ 公众号 HTML。markdown 是源、HTML 是终态。**不要越俎代庖**做转换。
-- **【公众号】图片用 markdown 占位**：原文有图的地方写 `![图：图片描述](placeholder)` 或 `<!-- 图：xxx -->` 注释。公众号粘贴时会丢图，必须先上传素材库手动插入。
+- **【公众号】创作阶段出 markdown，发布阶段才转 HTML**（2026-06-18 立、2026-06-22 更新）：**创作时**只产 markdown（HTML 不可读、改字麻烦），markdown 是源。**定稿后的发布**走绿色路线——Claude 套 `templates/wechat-green.html` 转绿色 HTML + base64 内嵌（见『发布到公众号』段）。两者分开：创作不碰 HTML，发布才转。
+- **【公众号】图片发布时 base64 内嵌，不再手动插**（2026-06-22 更新，取代旧占位方案）：发布副本里图片用 `![[xxx.png]]` 引用，`publish-to-wechat.sh` 发布时自动转 base64 内嵌，粘贴公众号会自动上传素材库——**不用再手动插图**。截图从 vault 自动抓，配图用 perbrand 生成（见『发布到公众号』段）。
 - **【公众号】markdown 要"公众号友好"**：避免复杂嵌套表格、避免脚注、避免 HTML 内联标签。引用块（`>`）、加粗（`**`）、列表、小标题（`##` `###`）是安全集。
 - **【公众号】绝大多数文章不用 markdown 小标题**：除非是"方法论分享型"原型用数字编号分条目，否则**不要 `## 一、xxx`**。板块间用口语化转场词衔接（「说到这个」「回到 xxx 这块」），这是 dbs 和 khazix 都强调的活人感。
 - **【X】中文按 2 字符权重计**：用 `parseTweet` 校验，不要靠 `text.length`。详见 `references/x-thread.md`
@@ -351,6 +366,7 @@ description: |
 | Step 2 选题判断 | `prompts/dbs-rules.md`（dbs 五维诊断） |
 | Step 3 选原型 | `references/article-archetypes.md`（5 种原型 + 适配表） |
 | Step 4 写公众号 | `references/wechat-mp.md`（结构模板 + markdown 规范） |
+| **发布公众号（定稿后）** | **`references/wechat-green-publish.md`**（配图→副本→绿色样式→base64 内嵌 完整流程） |
 | Step 4 写 X 线程 | `references/x-thread.md`（字符权重 + hook 规则） |
 | Step 4 写小红书 | `references/xiaohongshu.md` + `prompts/dbs-xhs-titles.md`（75 公式） |
 | 任何需要"活人感"措辞 | `references/voice-vocabulary.md`（口语词组库） |
@@ -374,7 +390,8 @@ description: |
 |---|---|
 | 用户对结果不满意，反复让你改 | 「可能是选题问题，不是创作问题。用 `/dbs-content` 重新诊断选题。」 |
 | 小红书标题反复都不满意 | 「这话题可能不适合小红书。换个角度，或者把这内容只发公众号 + X。」 |
-| 用户问能不能自动发 | 「创作内容是我的职责，发布请用 opencli：`opencli twitter post`、`opencli weixin create-draft`、`opencli xiaohongshu publish`。」 |
+| 用户要发公众号 | 「走绿色路线（见『发布到公众号』段）：配图(明确指令)→副本→绿色样式→base64 内嵌→粘贴。」 |
+| 用户要发 X / 小红书 | 「用 opencli：`opencli twitter post`、`opencli xiaohongshu publish`。」 |
 | 素材都是别人的观点摘录 | 「这批素材里缺第一手观察。建议补 1-2 个你自己的经历再来。」 |
 
 ---

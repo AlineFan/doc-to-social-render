@@ -59,7 +59,7 @@ if ! command -v codex >/dev/null 2>&1; then
     exit 1
 fi
 
-PROMPT="读取文章文件 ${ARTICLE}。用 perbrand 默认固定主角（苹果绿 hoodie、深色丸子头）为这篇文章生成 ${COUNT_DESC}横版 16:9 彩色手绘正文配图，逐张保存到 ${OUTDIR}/，按正文顺序命名 perbrand-01.png、perbrand-02.png…
+PROMPT="读取文章文件 ${ARTICLE}。用 perbrand 默认固定主角（苹果绿 hoodie、深色丸子头）为这篇文章生成 ${COUNT_DESC}横版 16:9 彩色手绘正文配图，逐张保存到 ${OUTDIR}/，按正文顺序命名 ${NAME}-perbrand-01.png、${NAME}-perbrand-02.png…（**必须带 \"${NAME}-\" 前缀**，避免 vault 内多篇文章配图同名冲突）
 然后写一份 shot list 到 ${SHOTLIST}，每张图列出：
 - 文件名（和实际保存的一致）
 - 位置（引用文章里的一句【精确原句】作为插入锚点，一字不差，方便程序定位）
