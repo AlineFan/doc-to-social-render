@@ -172,6 +172,14 @@ def _flatten_style(style: dict) -> dict:
     return flat
 
 
+def _is_image_comp(key: str, comp: dict) -> bool:
+    """组件是否是『图片』—— 图片不是 CSS 排版，克隆不了，套用时需用户换图。
+    可靠信号：有 is_image 槽位，或 tag 是 <img>。（图注 image_caption 是文字，不算。）"""
+    if "img" in (comp.get("tag") or ""):
+        return True
+    return any(isinstance(s, dict) and s.get("is_image") for s in (comp.get("slots") or {}).values())
+
+
 def generate_preview_generic(components: dict, skeleton_dir: str = None) -> str:
     """通用预览：对任意 LLM 提取出的组件（{tag, style, sample}）逐个渲染成清单。
     不依赖固定组件名 —— 新组件（代码块/列表/卡片…）都能渲染。LLM 全包提取走这个。
@@ -202,19 +210,32 @@ def generate_preview_generic(components: dict, skeleton_dir: str = None) -> str:
     meta = components.get("_meta", {})
     if isinstance(meta, dict) and meta.get("visual_style"):
         P.append(f'<p style="font-size:13px;color:#999;margin:0 0 24px;">{esc(meta["visual_style"])}</p>')
+    # 顶部诚实摘要：可克隆的 CSS 组件 vs 不可克隆的图片组件
+    allc = [(k, c) for k, c in components.items() if not k.startswith("_") and isinstance(c, dict)]
+    imgk = [k for k, c in allc if _is_image_comp(k, c)]
+    if imgk:
+        P.append(f'<p style="font-size:12px;color:#9a3412;background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:8px 10px;margin:0 0 20px;font-family:-apple-system">'
+                 f'⚠ 本风格含 <b>{len(imgk)}</b> 个图片组件（{esc("、".join(imgk))}）——图片不是 CSS 排版、<b>克隆不了</b>，套你自己内容时需换图/重做。'
+                 f'其余 <b>{len(allc)-len(imgk)}</b> 个是可克隆的 CSS 组件。</p>')
     for key, comp in components.items():
         if key.startswith("_") or not isinstance(comp, dict):
             continue
         if comp.get("skeleton_ref") and skeleton_dir:
             P.extend(_render_skeleton_components({key: comp}, skeleton_dir))
             continue
+        warn = ('<p style="color:#9a3412;font-size:11px;margin:2px 0 6px;font-family:-apple-system">'
+                '⚠ 图片组件 · 不是 CSS、克隆不了 —— 套你自己内容时换成你的图</p>') if _is_image_comp(key, comp) else ''
         if isinstance(comp.get("skeleton"), str):   # inline 骨架（LLM 提取的复合件）
             slots = comp.get("slots", {})
             def _sl(m, slots=slots):
                 sd = slots.get(m.group(1), {}) if isinstance(slots, dict) else {}
+                if isinstance(sd, dict) and sd.get("is_image"):
+                    return "https://placehold.co/600x360/eee/999?text=image"  # 图槽位→占位图，让边框/居中等图框样式显出来
                 v = sd.get("example") or sd.get("default") or sd.get("from") or m.group(1)
                 return esc(re.split(r'\s*(?:[（(]禁|←)', str(v))[0][:60])
             P.append(f'<p class="comp-label">{esc(comp.get("description", key))}</p>')
+            if warn:
+                P.append(warn)
             P.append(re.sub(r'\{\{(\w+)\}\}', _sl, comp["skeleton"]))
             continue
         desc = esc(comp.get("description", key))
@@ -225,6 +246,8 @@ def generate_preview_generic(components: dict, skeleton_dir: str = None) -> str:
         flat = _flatten_style(comp.get("style", {}) or {})
         sv = style_to_str(flat)
         P.append(f'<p class="comp-label">{desc}</p>')
+        if warn:
+            P.append(warn)
         # 外层容器：只展示信息（不实际包裹）
         if key == "container" or "container" in key or tag in ("body",):
             P.append(f'<p style="font-size:12px;color:#666;">{esc(sv) or "(继承默认)"}</p>')
