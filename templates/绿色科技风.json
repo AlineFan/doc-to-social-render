@@ -60,8 +60,15 @@
     "sample": "打开时间窗"
   },
   "part_heading": {
-    "description": "分节大数字标题（01 PART | 中文标题 / ENGLISH）",
+    "description": "分节大数字标题（NUM PART | 中文标题 / ENGLISH）",
     "tag": "section",
+    "skeleton_ref": "绿色科技风.skeleton.html#part_heading",
+    "slots": {
+      "NUM": { "from": "H1 出现顺序的序号（01/02…），零补两位", "when": "总有", "example": "01" },
+      "TITLE": { "from": "该 H1 标题文字", "when": "总有", "example": "灵感 · 从抖音到游戏（禁止照抄）" },
+      "ENGLISH": { "from": "由该段中文标题翻译/归纳的英文副标", "when": "总有", "example": "INSPIRATION（禁止照抄，按本文标题重新归纳）" }
+    },
+    "structure_rules": "flex 容器保留；中间竖线 flex-shrink:0；'PART' 是固定结构字。",
     "style": {
       "display": "flex",
       "align-items": "center",
@@ -141,9 +148,15 @@
     },
     "sample": "独立记忆"
   },
-  "tag_step": {
-    "description": "步骤标签（深色底 + 白字）",
-    "tag": "span",
+  "heading_index_pill": {
+    "description": "二级标题前的序号胶囊（深色底 + 白字）+ 小标题。胶囊里放的是【序号】，不是固定的 'STEP'。",
+    "tag": "section > span + h4",
+    "skeleton_ref": "绿色科技风.skeleton.html#heading_index_pill",
+    "slots": {
+      "INDEX": { "from": "用户二级标题的序号：「第一个方法」→01、「## 1.」→01。纯数字，零补两位。", "when": "二级标题带可数序号时", "example": "01" },
+      "HEADING": { "from": "二级标题正文，去掉序号前缀（「第一个方法：先判断…」取冒号后「先判断，再让 AI 验证」）", "when": "总有", "example": "聊出世界观（禁止照抄）" }
+    },
+    "semantic_gate": "⚠️ 胶囊里【只放数字】。除非用户标题文字本身含「步骤/STEP/第N步」语义，否则【绝不加 STEP/步骤 前缀】。参考文章的 'STEP' 是它的示例字（「方法/要点/部分」都不是步骤），禁止套用。",
     "style": {
       "display": "inline-block",
       "background": "#111827",
@@ -152,8 +165,7 @@
       "font-weight": "700",
       "padding": "2px 8px",
       "border-radius": "12px"
-    },
-    "sample": "STEP 01"
+    }
   },
   "content_padding": {
     "description": "内容区水平 padding（section 层）",
@@ -181,8 +193,20 @@
     "sample": "[图片]"
   },
   "cover_card": {
-    "description": "顶部封面卡片（圆角绿边框，含分类标签行+标题+封面图+底部绿色渐变作者条）",
+    "description": "顶部封面卡片（圆角绿边框，含分类眉题行+标题+底部绿色渐变作者条）",
     "tag": "section",
+    "skeleton_ref": "绿色科技风.skeleton.html#cover_card",
+    "slots": {
+      "CATEGORY": { "from": "由用户文章主题归纳的分类眉题", "when": "总有", "example": "GAME DEV · 实战案例（禁止照抄）" },
+      "DATE": { "from": "frontmatter 日期；没有则用发布/文件月份 YYYY.MM", "when": "总有", "example": "2026.04 ← 禁止照抄参考日期" },
+      "COUNTER_HOOK": { "from": "一句被划掉的反话钩子（文章论点的反面）", "when": "能归纳出才放，否则省略整行", "example": "废动作少了？（禁止照抄）" },
+      "TITLE_LINE1": { "from": "文章标题拆两行的第一行", "when": "总有", "example": "错位时空（禁止照抄）" },
+      "TITLE_LINE2": { "from": "文章标题拆两行的第二行（绿色重点）", "when": "总有", "example": "AI NPC 解谜（禁止照抄）" },
+      "SUBTITLE": { "from": "副标题/核心公式，从文章核心归纳", "when": "能归纳出才放", "example": "超级组织（禁止照抄）" },
+      "BRAND": { "from": "用户指定的公众号名 / vault 路径推断品牌", "when": "映射得到才放作者条", "example": "CodeBanana ← 禁止照抄" },
+      "TAG_PILLS": { "from": "文章关键概念 2-3 个，循环生成 tag item；词和数量都来自用户内容", "when": "映射得到才放", "example": "AI NPC / 多Agent协作 ← 禁止照抄" }
+    },
+    "structure_rules": "铁律③：外卡 + 绿作者条都带 box-sizing:border-box。铁律②：眉题行是 flex 容器，中间 flex:1 弹性线 + 两侧 flex-shrink:0，日期靠最右；不许降级成 <p>+inline。封面图为可选列，用户没给封面图就用骨架里的单列版（不放图占位）。",
     "style": {
       "card": {
         "margin": "0 0 32px",
@@ -276,9 +300,29 @@
     },
     "sample": "文章顶部的视觉入口卡片"
   },
+  "toc_scroll": {
+    "description": "横滚目录卡片（每个 part 一张卡，首张绿底高亮，其余白底）",
+    "tag": "section",
+    "skeleton_ref": "绿色科技风.skeleton.html#toc_scroll",
+    "slots": {
+      "COUNT": { "from": "目录卡片张数（= 收录的 part 数）", "when": "总有", "example": "4" },
+      "TOC_CARDS": { "from": "每个收录的 part 循环一张卡：NN=序号、TITLE=part 中文标题、SUBTITLE=一句话概括。全部来自用户文章分节。", "when": "文章有多个分节时", "example": "PART 01 / 双资本公式 / 竞争力公式（禁止照抄参考目录）" }
+    },
+    "structure_rules": "外层 overflow-x:scroll + white-space:nowrap 横滚；卡片 inline-block + 固定 width:110px + box-sizing:border-box。首张 active(绿底)，其余 default(白底)。",
+    "style": {
+      "container": { "margin": "0 0 32px", "padding": "0 20px" },
+      "card_active": { "background": "linear-gradient(135deg,#059669,#33c98d)", "border-radius": "12px", "padding": "12px", "width": "110px" },
+      "card_default": { "background": "#fff", "border": "1px solid #E5E7EB", "border-radius": "12px", "padding": "12px", "width": "110px", "box-shadow": "rgba(0,0,0,0.04) 0px 2px 6px" }
+    }
+  },
   "footer_triple_action": {
     "description": "底部三连引导（点赞/在看/转发 SVG 图标卡片）",
     "tag": "section",
+    "skeleton_ref": "绿色科技风.skeleton.html#footer_triple_action",
+    "slots": {
+      "PROMPT": { "from": "引导文案，默认即可", "when": "总有", "default": "既然看到这里了，如果觉得有用，随手点个赞、在看、转发三连吧。" }
+    },
+    "structure_rules": "几乎全固定结构。点赞/在看/转发是公众号平台动作（非参考内容），整段照抄骨架。",
     "style": {
       "card": {
         "background": "radial-gradient(circle at center,#F9FAFB 0%,#FFFFFF 100%)",

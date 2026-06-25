@@ -31,3 +31,5 @@ node_modules/
 xshots/
 _preview.html
 .gstack/
+skills/layout-cloner/__pycache__/
+templates/_llm-test/
