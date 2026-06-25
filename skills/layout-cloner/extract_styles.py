@@ -204,6 +204,7 @@ def generate_preview_generic(components: dict, skeleton_dir: str = None) -> str:
          '.preview-wrap{max-width:720px;margin:20px auto;background:#fff;padding:40px;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.08)}',
          '.comp-label{font-size:11px;color:#999!important;text-transform:uppercase;letter-spacing:2px!important;margin:32px 0 8px;padding-top:16px;border-top:1px solid #eee;font-family:-apple-system,sans-serif!important}',
          '.comp-label:first-child{border-top:none;margin-top:0}',
+         '.preview-wrap img{max-width:100%!important;height:auto!important;box-sizing:border-box}',  # 参考原图常很大，约束进容器、别跑出页面',
          f'</style></head><body><div class="preview-wrap" style="{base_sv}">',
          '<h1 style="font-size:20px;color:#333;margin:0 0 8px;font-family:-apple-system,sans-serif">提取样式预览</h1>',
          f'<p style="font-size:11px;color:#bbb;margin:0 0 8px;font-family:-apple-system">根容器基础样式: {esc(base_sv) or "⚠ 未提取到根容器（正文字体会不准）"}</p>']
