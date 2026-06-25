@@ -33,3 +33,9 @@ _preview.html
 .gstack/
 skills/layout-cloner/__pycache__/
 templates/_llm-test/
+
+# layout-cloner 压测/测试阶段的本地数据（不进 git，只留本地）
+templates/*.cleaned.html
+templates/*.inventory.txt
+output/_contract-test/
+output/*.regen.html
