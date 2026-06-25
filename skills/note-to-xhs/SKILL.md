@@ -33,8 +33,9 @@ bash /Users/doushun/Desktop/workspace/proj04-obsidian-publisher/scripts/note-to-
 
 - 输出 N 张 `01.png 02.png …`（1196×1594，3:4）到 `--out` 目录
 - 脚本自带：标题取笔记顶部 H1 或文件名、正文 X 长文样式、`![[图]]` 按 basename 去 vault 找、智能连续切（文字不切半行 / 图可跨页 / 留白极小）、互动数字随机、@林锵锵 头像
-- 跑完把 stdout 的 JSON（tiles / missing）读出来；**若 `missing` 非空，提示用户哪几张图没找到**
-- 完事 `open <out目录>` 让用户看
+- 跑完**只读脚本 stdout 的 JSON**（tiles / missing，纯文本、省 token）确认张数；**若 `missing` 非空，提示用户哪几张没找到**
+- ⚠️ **不要用 Read 工具打开 PNG 做视觉验证**——每张图作为视觉输入都费 token。正确性看 JSON 就够；画面好不好看交给用户人眼
+- 完事 `open <out目录>`，让用户自己看
 
 ### Step 2 · 生成标题（先用 dbs-xhs-title）
 
@@ -86,4 +87,5 @@ bash /Users/doushun/Desktop/workspace/proj04-obsidian-publisher/scripts/note-to-
 - ❌ 不自动发布到小红书（v1 手动发；未来可接 `opencli xiaohongshu publish`）
 - ❌ 不改写正文长文内容（那是 obsidian-publish 的活；本 skill 只做「成品笔记 → 小红书物料」）
 - ❌ 一次只处理一篇 md
+- ❌ **默认不 AI 读图验证**（省 token）：渲染对错看脚本 JSON，画面交用户人眼；除非用户明确说「你帮我看看图」
 - 文案风格以 `references/caption-style.md` 为准；标题方法以 dbs-xhs-title 为准
