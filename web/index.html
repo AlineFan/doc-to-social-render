@@ -293,7 +293,7 @@
   #xhsCard.tpl-rewild .rewild-foot strong{font-weight:800}
   #xhsCard.tpl-rewild .article-end{height:0}
 
-  /* 渐变票据：壁纸承托一张可切页的宋体小票，保留 Kami 的克制层级。 */
+  /* 彩色卡：高明度纯色承托一张可切页的宋体小票，保留 Kami 的克制层级。 */
   .ticket-swatches{display:none;align-items:center;gap:6px}
   .ticket-swatches.on{display:flex}
   .ticket-swatch{width:18px;height:18px;padding:0;border:1px solid rgba(0,0,0,.16);border-radius:2px;background:var(--swatch);cursor:pointer}
@@ -302,7 +302,7 @@
   .fit-toggle input{width:14px;height:14px;margin:0;accent-color:var(--accent)}
   #xhsCard.single-card{height:797px;overflow:hidden;box-sizing:border-box}
   #xhsCard.single-card.tpl-tea .letter-sheet,#xhsCard.single-card.tpl-walnut .walnut-sheet{min-height:0}
-  #xhsCard.tpl-ticket{--ticket-wallpaper:linear-gradient(145deg,#ffd72e 0%,#ffec72 54%,#d9a829 100%);background:var(--ticket-wallpaper);color:#3d3d3a;padding:32px 20px;box-sizing:border-box;font-family:Charter,Georgia,"Songti SC","STSong","Noto Serif CJK SC",serif}
+  #xhsCard.tpl-ticket{--ticket-wallpaper:#ffd72e;background:var(--ticket-wallpaper);color:#3d3d3a;padding:32px 20px;box-sizing:border-box;font-family:Charter,Georgia,"Songti SC","STSong","Noto Serif CJK SC",serif}
   #xhsCard.tpl-ticket .article-end{height:0}
   #xhsCard.tpl-ticket .ticket-paper{position:relative;background:#fffdf8;padding:30px 29px 0;box-sizing:border-box;min-height:720px;filter:drop-shadow(0 12px 18px rgba(38,32,68,.14));border-bottom:1px solid rgba(61,61,58,.14)}
   #xhsCard.tpl-ticket .ticket-title{margin:0;font-size:38px;font-weight:700;line-height:1.15;letter-spacing:0;overflow-wrap:anywhere}
@@ -399,7 +399,7 @@
     <div class="grp" data-mode="gzh"><span class="lbl">套版</span><select id="theme"></select><div class="coffee-swatches" id="gzhCoffeeSwatches" aria-label="莫兰迪颜色"><button class="coffee-swatch" type="button" data-coffee-swatch="mint" style="--swatch:#c6dfd5" title="薄荷绿"></button><button class="coffee-swatch" type="button" data-coffee-swatch="lavender" style="--swatch:#c4c0e1" title="薰衣草紫"></button><button class="coffee-swatch" type="button" data-coffee-swatch="yellow" style="--swatch:#f7d879" title="参考图黄"></button></div>
       <button class="tb-btn primary" id="copy">复制到公众号</button></div>
     <div class="grp" data-mode="xhs" style="display:none">
-      <span class="lbl">样式</span><select id="xhsTpl"><option>极简风</option><option>X长文</option><option value="莫兰迪">莫兰迪</option><option value="渐变票据">渐变卡</option><option value="茶笺">茶笺</option><option value="胡桃木信笺">胡桃木</option><option value="放生计划">点阵纸</option></select><div class="coffee-swatches" id="xhsCoffeeSwatches" aria-label="莫兰迪颜色"><button class="coffee-swatch" type="button" data-coffee-swatch="mint" style="--swatch:#c6dfd5" title="薄荷绿"></button><button class="coffee-swatch" type="button" data-coffee-swatch="lavender" style="--swatch:#c4c0e1" title="薰衣草紫"></button><button class="coffee-swatch" type="button" data-coffee-swatch="yellow" style="--swatch:#f7d879" title="参考图黄"></button></div><div class="ticket-swatches" id="ticketWallpaperSwatches" aria-label="渐变卡壁纸"><button class="ticket-swatch" type="button" data-ticket-wallpaper="yellow" style="--swatch:linear-gradient(145deg,#ffd72e,#ffec72,#d9a829)" title="向日黄"></button><button class="ticket-swatch" type="button" data-ticket-wallpaper="violet" style="--swatch:linear-gradient(135deg,#40307d,#8173ee,#d5cfff)" title="紫罗兰"></button><button class="ticket-swatch" type="button" data-ticket-wallpaper="green" style="--swatch:linear-gradient(135deg,#1c6f69,#39d6a5,#d9ff6e)" title="薄荷绿渐变"></button></div><div class="letter-swatches" id="teaToneSwatches" aria-label="茶笺纸张颜色"><button class="letter-swatch" type="button" data-tea-tone="ivory" style="--swatch:#ebe7dc" title="象牙白"></button><button class="letter-swatch" type="button" data-tea-tone="kraft" style="--swatch:#b78a65" title="做旧牛皮纸"></button></div><div class="letter-fonts" id="teaFontSwitch" aria-label="茶笺字体"><button class="letter-font" type="button" data-tea-font="serif">衬线</button><button class="letter-font" type="button" data-tea-font="kaiti">书摘体</button></div>
+      <span class="lbl">样式</span><select id="xhsTpl"><option>极简风</option><option>X长文</option><option value="莫兰迪">莫兰迪</option><option value="渐变票据">彩色卡</option><option value="茶笺">茶色笺</option><option value="胡桃木信笺">胡桃木</option><option value="放生计划">点阵纸</option></select><div class="coffee-swatches" id="xhsCoffeeSwatches" aria-label="莫兰迪颜色"><button class="coffee-swatch" type="button" data-coffee-swatch="mint" style="--swatch:#c6dfd5" title="薄荷绿"></button><button class="coffee-swatch" type="button" data-coffee-swatch="lavender" style="--swatch:#c4c0e1" title="薰衣草紫"></button><button class="coffee-swatch" type="button" data-coffee-swatch="yellow" style="--swatch:#f7d879" title="参考图黄"></button></div><div class="ticket-swatches" id="ticketWallpaperSwatches" aria-label="彩色卡底色"><button class="ticket-swatch" type="button" data-ticket-wallpaper="yellow" style="--swatch:#ffd72e" title="亮黄"></button><button class="ticket-swatch" type="button" data-ticket-wallpaper="violet" style="--swatch:#8173ee" title="亮紫"></button><button class="ticket-swatch" type="button" data-ticket-wallpaper="green" style="--swatch:#39d6a5" title="亮薄荷绿"></button></div><div class="letter-swatches" id="teaToneSwatches" aria-label="茶色笺纸张颜色"><button class="letter-swatch" type="button" data-tea-tone="ivory" style="--swatch:#ebe7dc" title="象牙白"></button><button class="letter-swatch" type="button" data-tea-tone="kraft" style="--swatch:#b78a65" title="做旧牛皮纸"></button></div><div class="letter-fonts" id="teaFontSwitch" aria-label="茶色笺字体"><button class="letter-font" type="button" data-tea-font="serif">衬线</button><button class="letter-font" type="button" data-tea-font="kaiti">书摘体</button></div>
       <span class="lbl">署名</span><input class="field" id="xhsName" value="作者" style="width:56px">
       <input class="field" id="xhsDate" style="width:52px" title="日期 MM/DD">
       <input class="field" id="xhsHandle" value="@yourid" style="width:78px;display:none" title="@handle">
@@ -448,7 +448,7 @@ const THEMES={
 const $=s=>document.querySelector(s);
 const editor=$('#editor'),gzhPreview=$('#gzhPreview'),themeSel=$('#theme'),statusEl=$('#status'),mdpick=$('#mdpick'),dropEl=$('#drop');
 const NOTE_PALETTES=Object.freeze({mint:'#c6dfd5',lavender:'#c4c0e1',yellow:'#f7d879'});
-const TICKET_WALLPAPERS=Object.freeze({yellow:{name:'向日黄',value:'linear-gradient(145deg,#ffd72e 0%,#ffec72 54%,#d9a829 100%)'},violet:{name:'紫罗兰',value:'linear-gradient(135deg,#40307d 0%,#8173ee 52%,#d5cfff 100%)'},green:{name:'薄荷绿渐变',value:'linear-gradient(135deg,#1c6f69 0%,#39d6a5 50%,#d9ff6e 100%)'}});
+const TICKET_WALLPAPERS=Object.freeze({yellow:{name:'亮黄',value:'#ffd72e'},violet:{name:'亮紫',value:'#8173ee'},green:{name:'亮薄荷绿',value:'#39d6a5'}});
 const TEA_TONES=Object.freeze({ivory:{name:'象牙白',paper:'#ebe7dc',ink:'#2e2c28',line:'#bdb7aa'},kraft:{name:'做旧牛皮纸',paper:'#b78a65',ink:'#fffdf7',line:'#c08f6a'}});
 let coffeeColor='mint';
 let ticketWallpaper='yellow';
@@ -583,14 +583,14 @@ function syncCoffeeSwatches(){
 document.querySelectorAll('[data-coffee-swatch]').forEach(b=>b.addEventListener('click',()=>{coffeeColor=b.dataset.coffeeSwatch;syncCoffeeSwatches();render();}));
 function syncTicketSwatches(){
   const on=xhsTpl.value==='渐变票据';
-  [...xhsTpl.options].find(o=>o.value==='渐变票据').textContent='渐变卡';
+  [...xhsTpl.options].find(o=>o.value==='渐变票据').textContent='彩色卡';
   $('#ticketWallpaperSwatches').classList.toggle('on',on);
   document.querySelectorAll('[data-ticket-wallpaper]').forEach(b=>{const selected=b.dataset.ticketWallpaper===ticketWallpaper;b.classList.toggle('on',selected);b.setAttribute('aria-pressed',String(selected));});
 }
 document.querySelectorAll('[data-ticket-wallpaper]').forEach(b=>b.addEventListener('click',()=>{ticketWallpaper=b.dataset.ticketWallpaper;syncTicketSwatches();render();}));
 function syncTeaToneSwatches(){
   const on=xhsTpl.value==='茶笺';
-  [...xhsTpl.options].find(o=>o.value==='茶笺').textContent='茶笺';
+  [...xhsTpl.options].find(o=>o.value==='茶笺').textContent='茶色笺';
   $('#teaToneSwatches').classList.toggle('on',on);
   document.querySelectorAll('[data-tea-tone]').forEach(b=>{const selected=b.dataset.teaTone===teaTone;b.classList.toggle('on',selected);b.setAttribute('aria-pressed',String(selected));});
 }
@@ -674,7 +674,25 @@ $('#avFile').addEventListener('change',async e=>{const f=e.target.files[0];if(f)
 $('#bannerBtn').addEventListener('click',()=>$('#bannerFile').click());
 $('#bannerFile').addEventListener('change',async e=>{const f=e.target.files[0];if(f){bannerUrl=await fileToDataURL(f);render();}});
 
+function exportFrame(){
+  const tpl=xhsTpl.value;
+  if(tpl==='胡桃木信笺')return {top:46,bottom:46,side:24,outer:'#675548',paper:'#efeee5'};
+  if(tpl==='茶笺')return {top:48,bottom:48,side:24,outer:teaTone==='kraft'?'#050505':'#050505',paper:TEA_TONES[teaTone].paper,dots:true,dotColor:teaTone==='kraft'?'rgba(73,50,36,.2)':'rgba(62,55,46,.15)'};
+  if(tpl==='渐变票据')return {top:32,bottom:32,side:20,outer:'ticket',paper:'#fffdf8'};
+  return {top:0,bottom:0,side:0,outer:'#fff',paper:'#fff'};
+}
+function fillExportFrame(ctx,frame,DPR){
+  const W=XW*DPR,H=XTILE*DPR,top=frame.top*DPR,bottom=frame.bottom*DPR,side=frame.side*DPR;
+  ctx.fillStyle=frame.outer==='ticket'?TICKET_WALLPAPERS[ticketWallpaper].value:frame.outer;
+  ctx.fillRect(0,0,W,H);
+  ctx.fillStyle=frame.paper;ctx.fillRect(side,top,W-side*2,H-top-bottom);
+  if(frame.dots){
+    ctx.fillStyle=frame.dotColor;
+    for(let y=top+7*DPR;y<H-bottom;y+=13*DPR)for(let x=side+7*DPR;x<W-side;x+=13*DPR)ctx.fillRect(x,y,1.4*DPR,1.4*DPR);
+  }
+}
 function computeCuts(includeSingleCardHeight=false){
+  const frame=exportFrame(),pageHeight=XTILE-frame.top-frame.bottom;
   const cardTop=xhsCard.getBoundingClientRect().top+window.scrollY;
   const Y=v=>v+window.scrollY-cardTop;
   const lines=[];let maxB=0;
@@ -689,24 +707,24 @@ function computeCuts(includeSingleCardHeight=false){
     if(el.children.length)[...el.children].forEach(walk);else{const b=bot(el);if(b>maxB)maxB=b;}};
   [...xhsCard.children].forEach(walk);
   const contentBottom=Math.round(maxB);
-  const pageBottom=includeSingleCardHeight&&xhsCard.classList.contains('single-card')?XTILE:contentBottom;
-  const cuts=[0];let cur=0,guard=0;
+  const pageBottom=includeSingleCardHeight&&xhsCard.classList.contains('single-card')?XTILE-frame.bottom:contentBottom;
+  const cuts=[frame.top];let cur=frame.top,guard=0;
   while(cur<pageBottom-1&&guard++<600){
-    let target=cur+XTILE;
+    let target=cur+pageHeight;
     if(target>=pageBottom){cuts.push(pageBottom);break;}
     for(const ln of lines){if(ln.t+0.5<target&&target<ln.b-0.5){target=Math.floor(ln.t);break;}}
-    if(target<=cur)target=cur+XTILE;
+    if(target<=cur)target=cur+pageHeight;
     cuts.push(target);cur=target;
   }
-  return {cuts,contentBottom:pageBottom};
+  return {cuts,contentBottom:pageBottom,frame};
 }
 function fitSingleCard(){
   xhsCard.classList.remove('single-card');
   xhsCard.style.removeProperty('height');
   if(!singleCard.checked)return false;
   xhsCard.classList.add('single-card');
-  const {contentBottom}=computeCuts();
-  if(contentBottom<=XTILE)return true;
+  const {contentBottom,frame}=computeCuts();
+  if(contentBottom<=XTILE-frame.bottom)return true;
   xhsCard.classList.remove('single-card');
   xhsCard.style.removeProperty('height');
   return false;
@@ -723,14 +741,14 @@ $('#exportPng').addEventListener('click',async()=>{
   try{
     xhsCard.querySelectorAll('.cutline').forEach(e=>e.remove());
     fitSingleCard();
-    const {cuts}=computeCuts(true);const DPR=2;
+    const {cuts,frame}=computeCuts(true);const DPR=2;
     const big=await html2canvas(xhsCard,{scale:DPR,backgroundColor:'#ffffff',width:XW,windowWidth:XW,useCORS:true,logging:false});
     const n=Math.max(1,cuts.length-1);
     for(let i=0;i<n;i++){
       const h=Math.max(1,(cuts[i+1]??cuts[i]+XTILE)-cuts[i]);
       const tile=document.createElement('canvas');tile.width=XW*DPR;tile.height=XTILE*DPR;
-      const ctx=tile.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,tile.width,tile.height);
-      ctx.drawImage(big,0,cuts[i]*DPR,XW*DPR,h*DPR,0,0,XW*DPR,h*DPR);
+      const ctx=tile.getContext('2d');fillExportFrame(ctx,frame,DPR);
+      ctx.drawImage(big,0,cuts[i]*DPR,XW*DPR,h*DPR,0,frame.top*DPR,XW*DPR,h*DPR);
       const a=document.createElement('a');a.download=`xhs-${String(i+1).padStart(2,'0')}.png`;a.href=tile.toDataURL('image/png');
       document.body.appendChild(a);a.click();a.remove();await new Promise(r=>setTimeout(r,150));
     }
