@@ -70,8 +70,15 @@
   .gzh-showcase{margin-top:52px;padding-top:44px;border-top:1px solid var(--line)}
   .gzh-showcase .showcase-intro{margin-bottom:24px}
   .gzh-showcase .showcase-intro h3{font-family:var(--serif);font-size:27px;line-height:1.2;color:var(--text);font-weight:600;margin:0}
-  .gzh-wall{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+  .gzh-wall{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+  .gzh-card{cursor:zoom-in}
   .gzh-card img{aspect-ratio:1/1;object-fit:cover;object-position:top}
+  .gzh-card figcaption{padding:14px 16px;font-size:14px}
+  .gzh-card figcaption span:last-child{font-size:12px}
+  #showcaseLightbox{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:28px;background:rgba(24,22,18,.84)}
+  #showcaseLightbox.on{display:flex}
+  #showcaseLightbox img{display:block;max-width:min(900px,calc(100vw - 56px));max-height:calc(100vh - 56px);width:auto;height:auto;background:#fff;box-shadow:0 18px 56px rgba(0,0,0,.32)}
+  #showcaseLightbox button{position:absolute;right:20px;top:20px;width:36px;height:36px;border:1px solid rgba(255,255,255,.55);border-radius:50%;background:rgba(0,0,0,.2);color:#fff;font-size:26px;line-height:30px;cursor:pointer}
   .themestrip{display:flex;flex-wrap:wrap;gap:8px}
   .chip{font-family:var(--mono);font-size:12.5px;padding:7px 13px;border:1px solid var(--line);color:var(--muted)}
   .note{font-size:14.5px;color:var(--text);line-height:1.8;margin:26px 0 0;max-width:66ch;background:rgba(111,144,121,.08);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:16px 18px}
@@ -90,7 +97,11 @@
     .showcase-card figcaption{padding:9px;font-size:11px}
     .gzh-showcase{margin-top:40px;padding-top:34px}
     .gzh-showcase .showcase-intro h3{font-size:24px;margin-bottom:12px}
-    .gzh-wall{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .gzh-wall{grid-template-columns:1fr;gap:16px}
+    .gzh-card figcaption{padding:12px 14px;font-size:13px}
+    #showcaseLightbox{padding:16px}
+    #showcaseLightbox img{max-width:calc(100vw - 32px);max-height:calc(100vh - 32px)}
+    #showcaseLightbox button{right:12px;top:12px}
   }
   .toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex:0 0 auto;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--surface)}
   .toolbar .grp{display:flex;align-items:center;gap:6px}
@@ -461,6 +472,10 @@
 </div>
 
 <div id="drop">松手，索引这个文件夹</div>
+<div id="showcaseLightbox" role="dialog" aria-modal="true" aria-label="公众号样张详情">
+  <button type="button" aria-label="关闭样张详情" title="关闭">×</button>
+  <img alt="">
+</div>
 
 <script>
 const REPO_URL="https://github.com/AlineFan/doc2social";
@@ -486,6 +501,14 @@ const THEMES={
 
 const $=s=>document.querySelector(s);
 const editor=$('#editor'),gzhPreview=$('#gzhPreview'),themeSel=$('#theme'),statusEl=$('#status'),mdpick=$('#mdpick'),dropEl=$('#drop');
+const showcaseLightbox=$('#showcaseLightbox'),showcaseLightboxImg=$('#showcaseLightbox img');
+function closeShowcaseLightbox(){showcaseLightbox.classList.remove('on');showcaseLightboxImg.removeAttribute('src');}
+document.addEventListener('click',e=>{
+  const card=e.target instanceof Element?e.target.closest('.gzh-card'):null;
+  if(card){const img=card.querySelector('img');if(img){showcaseLightboxImg.src=img.currentSrc||img.src;showcaseLightboxImg.alt=img.alt;showcaseLightbox.classList.add('on');}return;}
+  if(e.target===showcaseLightbox||e.target===showcaseLightbox.querySelector('button'))closeShowcaseLightbox();
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeShowcaseLightbox();});
 const NOTE_PALETTES=Object.freeze({mint:'#c6dfd5',lavender:'#c4c0e1',yellow:'#f7d879'});
 const TICKET_WALLPAPERS=Object.freeze({yellow:{name:'亮黄',value:'#ffd72e'},violet:{name:'亮紫',value:'#8173ee'},green:{name:'亮薄荷绿',value:'#39d6a5'}});
 const TEA_TONES=Object.freeze({ivory:{name:'象牙白',paper:'#ebe7dc',ink:'#2e2c28',line:'#bdb7aa'},kraft:{name:'做旧牛皮纸',paper:'#b78a65',ink:'#fffdf7',line:'#c08f6a'}});
